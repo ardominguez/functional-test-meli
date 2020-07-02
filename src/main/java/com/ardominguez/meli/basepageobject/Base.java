@@ -39,6 +39,7 @@ public class Base {
         }
     }
 
+
     public List<WebElement> findElements(By locator) throws Exception{
              return driver.findElements(locator);
     }

@@ -1,6 +1,7 @@
 package com.ardominguez.meli.pageobject;
 
 import com.ardominguez.meli.basepageobject.Base;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,8 +13,19 @@ import java.util.List;
 
 public class ResultsProductsPage extends Base {
 
+    @FindBy(how = How.CLASS_NAME, using ="breadcrumb__title")
+    WebElement searchResult;
+    @FindBy(how = How.CLASS_NAME, using ="ui-dropdown__link")
+    WebElement dropdownIndicator;
+    @FindBy(how = How.LINK_TEXT, using ="Mayor precio")
+    WebElement descOption;
     @FindBy(how = How.CSS, using = ".results-item")
     List<WebElement> results;
+
+    public ProductDetailpage OpenProductPage(Product product){
+        product.refProduct.click();
+        return new ProductDetailpage(driver);
+    }
 
     public ResultsProductsPage(WebDriver driver) {
         super(driver);
@@ -32,6 +44,12 @@ public class ResultsProductsPage extends Base {
             products.add(product);
         }
         return products;
+    }
+
+    public void selectProductDesc() throws InterruptedException {
+        waitForVisivility(By.className("ui-dropdown__link"));
+        dropdownIndicator.click();
+        descOption.click();
     }
 
 }
