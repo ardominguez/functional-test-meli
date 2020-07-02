@@ -4,11 +4,17 @@ import com.ardominguez.meli.pageobject.Product;
 import com.ardominguez.meli.pageobject.ProductDetailpage;
 import com.ardominguez.meli.pageobject.ResultsProductsPage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 import java.util.List;
+import com.ardominguez.meli.util.Util;
+import org.openqa.selenium.By;
+
+import static org.testng.Assert.assertEquals;
 
 @Test
 public class SearchProductTest {
@@ -54,6 +60,24 @@ public class SearchProductTest {
 
         }
 
+    }
+
+    @Test
+    public void saveResultSearchCSVFile() throws Exception {
+
+
+        HomePage home = new HomePage(driver);
+
+        WebDriverWait wait=new WebDriverWait(driver, 3000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".nav-logo")));
+
+        assertEquals(home.getPageTitle(), "Mercado Libre Uruguay", "The page tittle isn't matching");
+        ResultsProductsPage result = home.searchProduct("autos");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(".search-results-header")));
+        //List<Product> items = result.getResultsForSave();
+       // Assert.assertTrue(items.size()>0,"There was no results in the search");
+        //Util.writeResultCSV("autos.csv",items);
+        //driver.close();
     }
 
 

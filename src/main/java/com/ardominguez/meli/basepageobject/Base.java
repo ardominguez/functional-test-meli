@@ -80,6 +80,12 @@ public class Base {
     }
 
 
+    public String getPageTitle() throws Exception {
+        return driver.getTitle();
+
+    }
+
+
 
 
 

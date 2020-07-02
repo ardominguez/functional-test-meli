@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 public class Product{
     public String name;
     public Double price;
+    public String link;
     public WebElement refProduct;
 
     public Product(){

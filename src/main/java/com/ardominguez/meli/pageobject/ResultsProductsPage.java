@@ -21,6 +21,7 @@ public class ResultsProductsPage extends Base {
     WebElement descOption;
     @FindBy(how = How.CSS, using = ".results-item")
     List<WebElement> results;
+    WebElement resultList;
 
     public ProductDetailpage OpenProductPage(Product product){
         product.refProduct.click();
@@ -50,6 +51,31 @@ public class ResultsProductsPage extends Base {
         waitForVisivility(By.className("ui-dropdown__link"));
         dropdownIndicator.click();
         descOption.click();
+    }
+
+    public ArrayList<Product> getResultsForSave() {
+        ArrayList<Product> results=new ArrayList<Product>();
+        List<WebElement> list = resultList.findElements(By.cssSelector("li.results-item"));
+
+        if(list.size()> 0) {
+
+            for(WebElement item: list ) {
+
+                WebElement link = item.findElement(By.cssSelector("a"));
+                String linkItem = link.getAttribute("href");
+                WebElement name = item.findElement(By.cssSelector("span.main-title"));
+                String nameItem = name.getText();
+
+                Product result = new Product();
+                result.name = nameItem;
+                result.link = linkItem;
+                results.add(result);
+
+            }
+        }
+
+        return results;
+
     }
 
 }
