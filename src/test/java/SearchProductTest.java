@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
@@ -22,7 +23,7 @@ public class SearchProductTest {
     WebDriver driver;
     Base base;
 
-    @BeforeTest
+    @BeforeMethod
     public void SetUp()
     {
         System.setProperty("webdriver.chrome.driver", "/Users/ailenramayo/Downloads/chromedriver");
@@ -68,15 +69,15 @@ public class SearchProductTest {
 
         HomePage home = new HomePage(driver);
 
-        WebDriverWait wait=new WebDriverWait(driver, 3000);
+        WebDriverWait wait=new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".nav-logo")));
 
         assertEquals(home.getPageTitle(), "Mercado Libre Uruguay", "The page tittle isn't matching");
         ResultsProductsPage result = home.searchProduct("autos");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(".search-results-header")));
-        //List<Product> items = result.getResultsForSave();
-       // Assert.assertTrue(items.size()>0,"There was no results in the search");
-        //Util.writeResultCSV("autos.csv",items);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".search-results-header")));
+        List<Product> items = result.getResultsForSave();
+        Assert.assertTrue(items.size()>0,"There was no results in the search");
+        Util.writeResultCSV("autos.csv",items);
         //driver.close();
     }
 

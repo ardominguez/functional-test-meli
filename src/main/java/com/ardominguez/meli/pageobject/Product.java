@@ -15,6 +15,8 @@ public class Product{
     public Product(WebElement element){
      refProduct = element;
      name = element.findElement(By.className("main-title")).getText();
+     WebElement linkElement = element.findElement(By.cssSelector("a"));
+     link = linkElement.getAttribute("href");
      String currency = element.findElement(By.className("price__symbol")).getText();
      String priceText = element.findElement(By.className("price__fraction")).getText();
      priceText=priceText.replace(".","");

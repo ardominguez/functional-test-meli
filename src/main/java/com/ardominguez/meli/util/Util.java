@@ -13,10 +13,10 @@ public class Util {
     public static void writeResultCSV(String filename, List<Product> items) throws FileSystemException, UnsupportedEncodingException, FileNotFoundException {
 
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
-        writer.append("Nombre,Link");
+        writer.append("Nombre,Link\n");
 
         for(Product item :items) {
-            writer.print(item.name+","+item.link+"\n");
+            writer.append(item.name+","+item.link+"\n");
         }
         writer.flush();
         writer.close();
