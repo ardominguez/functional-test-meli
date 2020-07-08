@@ -46,6 +46,7 @@ public class MeliTests {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".breadcrumb")));
       Product product = resultPage.getProduct(4);
       ProductDetailpage detailPage = resultPage.OpenProductPage(product);
+      driver.close();
 
     }
 
@@ -66,7 +67,7 @@ public class MeliTests {
             Assert.assertTrue(currentProduct.price >= nextProduct.price,currentProduct.name+" "+currentProduct.price+" "+nextProduct.name+" "+nextProduct.price);
 
         }
-
+     driver.close();
     }
 
     @Test(groups = {"TestThree"})
@@ -82,7 +83,7 @@ public class MeliTests {
         List<Product> items = result.getResultsForSave();
         Assert.assertTrue(items.size()>0,"There was no results in the search");
         Util.writeResultCSV("autos.csv",items);
-        //driver.close();
+        driver.close();
     }
 
 
