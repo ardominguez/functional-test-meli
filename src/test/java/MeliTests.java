@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import java.util.List;
 import com.ardominguez.meli.util.Util;
@@ -18,10 +18,11 @@ import org.openqa.selenium.By;
 import static org.testng.Assert.assertEquals;
 
 @Test
-public class SearchProductTest {
+public class MeliTests {
 
     WebDriver driver;
     Base base;
+
 
     @BeforeMethod
     public void SetUp()
@@ -32,20 +33,25 @@ public class SearchProductTest {
         //driver = base.chromeWebDriverConnection();
         base.visit("https://www.mercadolibre.com.uy/");
     }
+    @Parameters({"product-name"})
     @Test
-    void Test()
+    public void getProductPositionFour(String param)
     {
+
+      System.out.println("First test");
       HomePage homePage;
       homePage = new HomePage(driver);
-      ResultsProductsPage resultPage = homePage.searchProduct("TV Lg");
+      ResultsProductsPage resultPage = homePage.searchProduct(param);
+        WebDriverWait wait=new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".breadcrumb")));
       Product product = resultPage.getProduct(4);
       ProductDetailpage detailPage = resultPage.OpenProductPage(product);
 
     }
 
-    @Test
+    @Test(groups={"TestTwo"})
     void verifyProductSortedDesc() throws InterruptedException {
-
+        System.out.println("Second test");
         HomePage homePage;
         homePage = new HomePage(driver);
         ResultsProductsPage resultPage = homePage.searchProduct("TV Lg");
@@ -63,12 +69,10 @@ public class SearchProductTest {
 
     }
 
-    @Test
+    @Test(groups = {"TestThree"})
     public void saveResultSearchCSVFile() throws Exception {
-
-
+        System.out.println("Third test");
         HomePage home = new HomePage(driver);
-
         WebDriverWait wait=new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".nav-logo")));
 
